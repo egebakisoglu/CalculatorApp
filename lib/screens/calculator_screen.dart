@@ -109,7 +109,9 @@ class CalculatorScreen extends ConsumerWidget {
                       text: buttons[index],
                       onTap: () {
                         // 16 = '+/-', 18 = ','
-
+                        if(index == 18){
+                          ref.read(calculatorProvider.notifier).setOperation(buttons[index]);
+                        }
                       },
                     );
                   }
