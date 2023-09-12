@@ -29,15 +29,13 @@ class CalculatorScreen extends ConsumerWidget {
               height: 120,
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Text(
-                    calculatorModel.currentOperation,
-                    style: TextStyle(
-                      color: Colors.grey[700],
-                      fontSize: 32,
-                    ),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Text(
+                  calculatorModel.currentOperation,
+                  style: TextStyle(
+                    color: Colors.grey[700],
+                    fontSize: 32,
                   ),
                 ),
               ),
@@ -47,16 +45,14 @@ class CalculatorScreen extends ConsumerWidget {
               height: 120,
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               margin: EdgeInsets.symmetric(horizontal: 10),
-              child: Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  reverse: true,
-                  child: Text(
-                    calculatorModel.input,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 90,
-                    ),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                reverse: true,
+                child: Text(
+                  calculatorModel.input,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 90,
                   ),
                 ),
               ),
@@ -95,7 +91,12 @@ class CalculatorScreen extends ConsumerWidget {
                       text: buttons[index],
                       onTap: () {
                         // 3 = '/', 7 = 'x', 11 = '-', 15 = '+', 19 = '=',
-                        ref.read(calculatorProvider.notifier).setOperation(buttons[index]);
+                        if (buttons[index] == "="){
+                          ref.read(calculatorProvider.notifier).showResult();
+                        }
+                        else{
+                          ref.read(calculatorProvider.notifier).setOperation(buttons[index]);
+                        }
                       },
                     );
                   }

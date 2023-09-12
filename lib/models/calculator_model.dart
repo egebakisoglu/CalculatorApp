@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class CalculatorModel {
   const CalculatorModel({this.input = "", this.currentOperation = "", this.result = 0.0});
@@ -36,6 +37,14 @@ class CalculatorNotifier extends StateNotifier<CalculatorModel> {
   }
 
   void setOperation(String operation) {
+    operation = operation.replaceAll("x", "*");
     state = state.copyWith(input: "", currentOperation: "${state.currentOperation} $operation ");
+  }
+
+  void showResult() {
+    ContextModel cm = ContextModel();
+    Parser p = Parser();
+    Expression exp = p.parse(state.currentOperation);
+    state = state.copyWith(input: exp.evaluate(EvaluationType.REAL, cm).toString(), currentOperation: state.currentOperation);
   }
 }
