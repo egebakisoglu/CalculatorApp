@@ -38,7 +38,13 @@ class CalculatorNotifier extends StateNotifier<CalculatorModel> {
 
   void setOperation(String operation) {
     operation = operation.replaceAll("x", "*");
-    state = state.copyWith(input: "", currentOperation: "${state.currentOperation} $operation ");
+    state = state.copyWith(input: "",
+        currentOperation: operation == "."
+            ? "${state.currentOperation}$operation"
+            : operation == "*"|| operation == "/"
+              ? "(${state.currentOperation}) $operation "
+              : "${state.currentOperation} $operation "
+    );
   }
 
   void showResult() {
