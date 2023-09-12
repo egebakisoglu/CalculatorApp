@@ -15,11 +15,11 @@ class CalculatorScreen extends ConsumerWidget {
       "7", "8", "9", "x",
       "4", "5", "6", "-",
       "1", "2", "3", "+",
-      "0", "+/-", ",", "="
+      "+/-", "0", ",", "="
     ];
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -28,7 +28,7 @@ class CalculatorScreen extends ConsumerWidget {
               alignment: Alignment.bottomRight,
               height: 120,
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              margin: EdgeInsets.symmetric(horizontal: 30),
+              margin: EdgeInsets.symmetric(horizontal: 10),
               child: Expanded(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -36,7 +36,7 @@ class CalculatorScreen extends ConsumerWidget {
                   child: Text(
                     calculatorModel.input,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 90,
                     ),
                   ),
@@ -54,20 +54,27 @@ class CalculatorScreen extends ConsumerWidget {
                 itemBuilder: (BuildContext context, int index) {
                   if (index == 0 || index == 1 || index == 2) {
                     return MyButton(
-                      color: Colors.grey[400],
-                      textColor: Colors.black,
+                      color: Colors.pink[600],
+                      textColor: Colors.white,
                       text: buttons[index],
                     );
                   }
                   else if (index == 3 || index == 7 || index == 11 || index == 15 || index == 19){
                     return MyButton(
-                      color: Colors.orange,
+                      color: Colors.yellow[900],
+                      textColor: Colors.white,
+                      text: buttons[index],
+                    );
+                  }
+                  if (index == 16 || index == 18) {
+                    return MyButton(
+                      color: Colors.blue[900],
                       textColor: Colors.white,
                       text: buttons[index],
                     );
                   }
                   return MyButton(
-                    color: Colors.grey[900],
+                    color: Colors.blue[700],
                     textColor: Colors.white,
                     text: buttons[index],
                   );
