@@ -24,12 +24,16 @@ final calculatorProvider = StateNotifierProvider<CalculatorNotifier, CalculatorM
 class CalculatorNotifier extends StateNotifier<CalculatorModel> {
   CalculatorNotifier() : super(CalculatorModel());
 
+  bool canOperate = true;
+
   void appendNumber(String number) {
     state = state.copyWith(input: state.input + number, currentOperation: state.currentOperation + number);
+    canOperate = true;
   }
 
   void clearInput() {
     state = state.copyWith(input: "", currentOperation: "");
+    canOperate = true;
   }
 
   void clearLastInput() {
@@ -37,20 +41,27 @@ class CalculatorNotifier extends StateNotifier<CalculatorModel> {
   }
 
   void setOperation(String operation) {
-    operation = operation.replaceAll("x", "*");
-    state = state.copyWith(input: "",
-        currentOperation: operation == "."
-            ? "${state.currentOperation}$operation"
-            : operation == "*"|| operation == "/" || operation == "%"
-              ? "(${state.currentOperation}) $operation "
-              : "${state.currentOperation} $operation "
-    );
+    if (canOperate) {
+      operation = operation.replaceAll("x", "*");
+      state = state.copyWith(input: "",
+          currentOperation: operation == "."
+              ? "${state.currentOperation}$operation"
+              : operation == "*" || operation == "/" || operation == "%"
+                  ? "(${state.currentOperation}) $operation "
+                  : "${state.currentOperation} $operation "
+      );
+      canOperate = false;
+    }
   }
 
   void showResult() {
-    ContextModel cm = ContextModel();
-    Parser p = Parser();
-    Expression exp = p.parse(state.currentOperation);
-    state = state.copyWith(input: exp.evaluate(EvaluationType.REAL, cm).toString(), currentOperation: state.currentOperation);
+    if (canOperate) {
+      ContextModel cm = ContextModel();
+      Parser p = Parser();
+      Expression exp = p.parse(state.currentOperation);
+      state = state.copyWith(
+          input: exp.evaluate(EvaluationType.REAL, cm).toString(),
+          currentOperation: state.currentOperation);
+    }
   }
 }
