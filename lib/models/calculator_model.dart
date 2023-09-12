@@ -33,7 +33,7 @@ class CalculatorNotifier extends StateNotifier<CalculatorModel> {
   }
 
   void clearLastInput() {
-    state = state.copyWith(input: state.input.substring(0, state.input.length - 1));
+    state = state.copyWith(input: state.input.substring(0, state.input.length - 1), currentOperation: state.currentOperation.substring(0, state.currentOperation.length - 1));
   }
 
   void setOperation(String operation) {
