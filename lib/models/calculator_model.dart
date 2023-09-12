@@ -41,7 +41,7 @@ class CalculatorNotifier extends StateNotifier<CalculatorModel> {
     state = state.copyWith(input: "",
         currentOperation: operation == "."
             ? "${state.currentOperation}$operation"
-            : operation == "*"|| operation == "/"
+            : operation == "*"|| operation == "/" || operation == "%"
               ? "(${state.currentOperation}) $operation "
               : "${state.currentOperation} $operation "
     );
