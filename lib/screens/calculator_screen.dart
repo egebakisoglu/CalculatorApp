@@ -57,6 +57,17 @@ class CalculatorScreen extends ConsumerWidget {
                       color: Colors.pink[600],
                       textColor: Colors.white,
                       text: buttons[index],
+                      onTap: () {
+                        // 0 = Delete all, 1 = Delete last input, 2 = / 100
+                        switch (index) {
+                          case 0:
+                            ref.read(calculatorProvider.notifier).clearInput();
+                            break;
+                          case 1:
+                            ref.read(calculatorProvider.notifier).clearLastInput();
+                            break;
+                        }
+                      },
                     );
                   }
                   else if (index == 3 || index == 7 || index == 11 || index == 15 || index == 19){
@@ -64,6 +75,10 @@ class CalculatorScreen extends ConsumerWidget {
                       color: Colors.yellow[900],
                       textColor: Colors.white,
                       text: buttons[index],
+                      onTap: () {
+                        // 3 = '/', 7 = 'x', 11 = '-', 15 = '+', 19 = '=',
+
+                      },
                     );
                   }
                   if (index == 16 || index == 18) {
@@ -71,12 +86,20 @@ class CalculatorScreen extends ConsumerWidget {
                       color: Colors.blue[900],
                       textColor: Colors.white,
                       text: buttons[index],
+                      onTap: () {
+                        // 16 = '+/-', 18 = ','
+
+                      },
                     );
                   }
                   return MyButton(
                     color: Colors.blue[700],
                     textColor: Colors.white,
                     text: buttons[index],
+                    onTap: () {
+                      // number buttons
+                      ref.read(calculatorProvider.notifier).appendNumber(buttons[index]);
+                    },
                   );
                 },
               ),

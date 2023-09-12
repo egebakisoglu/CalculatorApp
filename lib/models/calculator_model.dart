@@ -1,9 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CalculatorModel {
-  String input = "0";
-  String currentOperation = "";
-  double result = 0.0;
+  const CalculatorModel({this.input = "", this.currentOperation = "", this.result = 0.0});
+
+  final String input;
+  final String currentOperation;
+  final double result;
+
+  CalculatorModel copyWith({String? input, String? currentOperation, double? result}) {
+    return CalculatorModel(
+      input: input ?? this.input,
+      currentOperation: currentOperation ?? this.currentOperation,
+      result: result ?? this.result,
+    );
+  }
 }
 
 final calculatorProvider = StateNotifierProvider<CalculatorNotifier, CalculatorModel>((ref) {
@@ -14,14 +24,14 @@ class CalculatorNotifier extends StateNotifier<CalculatorModel> {
   CalculatorNotifier() : super(CalculatorModel());
 
   void appendNumber(String number) {
-    state.input += number;
+    state = state.copyWith(input: state.input + number);
   }
 
   void clearInput() {
-    state.input = "";
+    state = state.copyWith(input: "");
   }
 
   void clearLastInput() {
-    state.input = state.input.substring(0, state.input.length - 1);
+    state = state.copyWith(input: state.input.substring(0, state.input.length - 1));
   }
 }
