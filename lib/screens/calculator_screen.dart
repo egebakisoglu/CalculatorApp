@@ -80,6 +80,8 @@ class CalculatorScreen extends ConsumerWidget {
                           case 1:
                             ref.read(calculatorProvider.notifier).clearLastInput();
                             break;
+                          case 2:
+                            ref.read(calculatorProvider.notifier).setOperation(buttons[index]);
                         }
                       },
                     );
