@@ -15,7 +15,7 @@ class CalculatorScreen extends ConsumerWidget {
       "7", "8", "9", "x",
       "4", "5", "6", "-",
       "1", "2", "3", "+",
-      "+/-", "0", ",", "="
+      "+/-", "0", ".", "="
     ];
 
     return Scaffold(
@@ -24,6 +24,24 @@ class CalculatorScreen extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            Container(
+              alignment: Alignment.bottomLeft,
+              height: 120,
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Text(
+                    calculatorModel.currentOperation,
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                      fontSize: 32,
+                    ),
+                  ),
+                ),
+              ),
+            ),
             Container(
               alignment: Alignment.bottomRight,
               height: 120,
@@ -77,7 +95,7 @@ class CalculatorScreen extends ConsumerWidget {
                       text: buttons[index],
                       onTap: () {
                         // 3 = '/', 7 = 'x', 11 = '-', 15 = '+', 19 = '=',
-
+                        ref.read(calculatorProvider.notifier).setOperation(buttons[index]);
                       },
                     );
                   }

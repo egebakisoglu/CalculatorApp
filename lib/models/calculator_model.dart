@@ -24,14 +24,18 @@ class CalculatorNotifier extends StateNotifier<CalculatorModel> {
   CalculatorNotifier() : super(CalculatorModel());
 
   void appendNumber(String number) {
-    state = state.copyWith(input: state.input + number);
+    state = state.copyWith(input: state.input + number, currentOperation: state.currentOperation + number);
   }
 
   void clearInput() {
-    state = state.copyWith(input: "");
+    state = state.copyWith(input: "", currentOperation: "");
   }
 
   void clearLastInput() {
     state = state.copyWith(input: state.input.substring(0, state.input.length - 1));
+  }
+
+  void setOperation(String operation) {
+    state = state.copyWith(input: "", currentOperation: "${state.currentOperation} $operation ");
   }
 }
