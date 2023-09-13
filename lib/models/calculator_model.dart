@@ -25,9 +25,13 @@ class CalculatorNotifier extends StateNotifier<CalculatorModel> {
   CalculatorNotifier() : super(CalculatorModel());
 
   bool canOperate = true;
+  bool resultShown = false;
 
   void appendNumber(String number) {
-    state = state.copyWith(input: state.input + number, currentOperation: state.currentOperation + number);
+    if (!resultShown) {
+      state = state.copyWith(input: state.input + number,
+          currentOperation: state.currentOperation + number);
+    }
     canOperate = true;
   }
 
@@ -51,6 +55,7 @@ class CalculatorNotifier extends StateNotifier<CalculatorModel> {
                   : "${state.currentOperation} $operation "
       );
       canOperate = false;
+      resultShown = false;
     }
   }
 
@@ -62,6 +67,7 @@ class CalculatorNotifier extends StateNotifier<CalculatorModel> {
       state = state.copyWith(
           input: exp.evaluate(EvaluationType.REAL, cm).toString(),
           currentOperation: state.currentOperation);
+      resultShown = true;
     }
   }
 }
