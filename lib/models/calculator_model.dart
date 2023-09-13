@@ -41,7 +41,7 @@ class CalculatorNotifier extends StateNotifier<CalculatorModel> {
   }
 
   void setOperation(String operation) {
-    if (canOperate && state.input == "") {
+    if (canOperate && state.input != "") {
       operation = operation.replaceAll("x", "*");
       state = state.copyWith(input: "",
           currentOperation: operation == "."
